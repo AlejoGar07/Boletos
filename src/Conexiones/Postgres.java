@@ -7,23 +7,23 @@ import javax.swing.JOptionPane;
 
 
 public class Postgres {
-    private final String Host="localhost";
-    private final String Puerto="5432";
-    private final String DB="boletos";
-    private final String User="postgres";
-    private final String Password="Ale0107";
+    private static Connection conn;
+    private static String url= "jdbc:postgresql://localhost:5432/Boletos";
+    private static String User="postgres";
+    private static String Password="Ale0107";
     
-    public Connection getPostgres(){
-        Connection postgres=null;
+    public static Connection getPostgres() throws SQLException{
         
         try{
             Class.forName("org.postgresql.Driver");
-            String url="jdbc:postgresql://"+Host+":"+Puerto+"/"+DB;
-            postgres=DriverManager.getConnection(url,User,Password);
-            JOptionPane.showMessageDialog(null, "Conexion Exitosa");
+            
+            conn=DriverManager.getConnection(url,User,Password);
+            System.out.println("Conexion Exitosa");
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, ("Error"));
+            System.out.println("Error"+e.getMessage());
+
         }
-        return postgres;
+        return conn;
     }
+    
 }
